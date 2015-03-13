@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="60dp"
+    android:background="@drawable/main_message_contact_bg"
+    android:paddingBottom="6.0dip"
+    android:paddingTop="6.0dip">
+
+    <ImageView
+        android:id="@+id/ListView_contact_portrait"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/ic_launcher"/>
+
+    <LinearLayout
+        android:layout_toRightOf="@id/ListView_contact_portrait"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/ListView_contact_user"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="username"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/ListView_contact_personalized"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="personalized"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ListView_contact_state"
+        android:layout_alignParentRight="true"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/ic_launcher"/>
+
+</RelativeLayout>
