@@ -26,7 +26,7 @@
         android:layout_below="@id/register_topic"
         android:gravity="center"
         android:background="@drawable/login_textview_bg"
-        android:hint="用户账号"/>
+        android:hint="登陆账号"/>
 
     <EditText
         android:id="@+id/register_password1"

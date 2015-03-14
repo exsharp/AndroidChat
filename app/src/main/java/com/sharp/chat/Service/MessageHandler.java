@@ -41,47 +41,13 @@ public class MessageHandler {
             case "LOGIN":
                 login(jsonArray);
                 break;
+            case "REGISTER":
+                register(jsonArray);
+                break;
             default:
         }
     }
 
-    public Intent getMyIntent() {
-        return intent;
-    }
-    private void movFriend(JSONArray ja)throws JSONException{
-        intent.setAction("MOVFRIEND");
-        intent.putExtra("STATE",ja.get(0).toString());
-        context.sendBroadcast(intent);
-        Log.d("MsgHandler", "移动好友");
-    }
-
-    private void delGroup(JSONArray ja) throws JSONException{
-        intent.setAction("DELGROUP");
-        intent.putExtra("STATE",ja.get(0).toString());
-        context.sendBroadcast(intent);
-        Log.d("MsgHandler","删除组");
-    }
-
-    private void addGroup(JSONArray ja) throws JSONException {
-        intent.setAction("ADDGROUP");
-        intent.putExtra("STATE",ja.get(0).toString());
-        context.sendBroadcast(intent);
-        Log.d("MsgHandler","添加组");
-    }
-
-    private void delFriend(JSONArray ja) throws JSONException {
-        intent.setAction("DELFRIEND");
-        intent.putExtra("STATE",ja.get(0).toString());
-        context.sendBroadcast(intent);
-        Log.d("MsgHandler","删除好友");
-    }
-
-    private void addFriend(JSONArray ja) throws JSONException {
-        intent.setAction("ADDFRIEND");
-        intent.putExtra("STATE",ja.get(0).toString());
-        context.sendBroadcast(intent);
-        Log.d("MsgHandler","添加好友");
-    }
     private void login(JSONArray ja) throws JSONException {
         intent.setAction("LOGIN");
         if (ja.get(0).equals("登陆成功")){
@@ -92,5 +58,14 @@ public class MessageHandler {
         }
         context.sendBroadcast(intent);
         Log.d("MsgHandler", "身份验证");
+    }
+    private void register(JSONArray ja)throws JSONException{
+        intent.setAction("REGISTER");
+        if (ja.get(0).equals("exist")){
+            intent.putExtra("RESULT","exist");
+        }else{
+            intent.putExtra("RESULT","SUCCESS");
+        }
+        context.sendBroadcast(intent);
     }
 }

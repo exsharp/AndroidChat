@@ -78,11 +78,11 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
                 login();
                 break;
             case R.id.login_problemBT:
-                intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                intent = new Intent(LoginActivity.this, ForgetActivity.class);
                 startActivity(intent);
                 break;
             case R.id.login_registerBT:
-                intent = new Intent(LoginActivity.this, ForgetActivity.class);
+                intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
                 break;
             default:
@@ -92,10 +92,10 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
     private void login(){
         EditText usernameET = (EditText)findViewById(R.id.login_user);
         EditText passwordET = (EditText) findViewById(R.id.login_password);
-//        String username = usernameET.getText().toString();
-//        String password = passwordET.getText().toString();
-        String username = "aaa";
-        String password = "111";
+        String username = usernameET.getText().toString();
+        String password = passwordET.getText().toString();
+//        String username = "aaa";
+//        String password = "111";
         if (username.isEmpty()){
             Toast.makeText(this,"用户名不能为空",Toast.LENGTH_SHORT).show();
         }
