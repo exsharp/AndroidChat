@@ -37,7 +37,6 @@ public class MessageFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("MessageFragment", "到了MessageFragment");
-        ((ActionBarActivity)getActivity()).getSupportActionBar().hide();
         message.add(new ShowInfo("aaa","bbb"));
         message.add(new ShowInfo("ccc","ddd"));
     }

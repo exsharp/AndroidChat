@@ -38,14 +38,14 @@ public class RegisterActivity extends ActionBarActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+
         initView();
 
-        receiver = new Receiver();
+        receiver = new RegisterReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction("REGISTER");
         registerReceiver(receiver,filter);
+
     }
 
     private void initView(){
@@ -64,6 +64,11 @@ public class RegisterActivity extends ActionBarActivity implements View.OnClickL
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
+    }
 
     @Override
     public void onClick(View v) {
@@ -100,7 +105,7 @@ public class RegisterActivity extends ActionBarActivity implements View.OnClickL
 
     }
 
-    private class Receiver extends BroadcastReceiver{
+    private class RegisterReceiver extends BroadcastReceiver{
 
         @Override
         public void onReceive(Context context, Intent intent) {

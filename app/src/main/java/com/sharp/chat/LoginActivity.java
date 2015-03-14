@@ -42,8 +42,6 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
 
         Intent intent = new Intent(LoginActivity.this, ServiceNet.class);
         startService(intent);

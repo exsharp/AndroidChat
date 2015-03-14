@@ -64,7 +64,7 @@ public class MessageHandler {
         if (ja.get(0).equals("exist")){
             intent.putExtra("RESULT","exist");
         }else{
-            intent.putExtra("RESULT","SUCCESS");
+            intent.putExtra("RESULT","success");
         }
         context.sendBroadcast(intent);
     }

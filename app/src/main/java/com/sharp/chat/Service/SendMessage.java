@@ -26,7 +26,7 @@ public class SendMessage {
         this.type = type;
         AppUtil app = (AppUtil)context.getApplicationContext();
         this.writer = app.getWriter();
-    }
+}
 
     public SendMessage(String type,BufferedWriter writer){
         this.type = type;
