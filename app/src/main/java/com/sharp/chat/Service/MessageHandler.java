@@ -44,6 +44,9 @@ public class MessageHandler {
             case "REGISTER":
                 register(jsonArray);
                 break;
+            case "FRIEND_LIST":
+                friendList(jsonArray);
+                break;
             default:
         }
     }
@@ -67,5 +70,8 @@ public class MessageHandler {
             intent.putExtra("RESULT","success");
         }
         context.sendBroadcast(intent);
+    }
+    private void friendList(JSONArray ja){
+
     }
 }

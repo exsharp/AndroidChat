@@ -9,18 +9,18 @@ import java.io.BufferedWriter;
  */
 public class AppUtil extends Application {
 
-    private String userName = null;
-    private String passWord = null;
+    private String account = null;
+    private String password = null;
     private String currentActivity = "";
     private String chatWithWho = "";
     private BufferedWriter writer;
 
-    public String getUserName(){
-        return userName;
+    public String getAccount(){
+        return account;
     }
     public void setUser(String name,String word){
-        userName = name;
-        passWord = word;
+        account = name;
+        password = word;
     }
 
     public void setCurrentActivity(String activity){
