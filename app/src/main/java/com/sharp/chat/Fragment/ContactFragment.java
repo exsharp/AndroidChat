@@ -14,7 +14,9 @@ import android.widget.ExpandableListView;
 
 import com.sharp.chat.Adapter.ContactFragmentAdapter;
 import com.sharp.chat.ChatActivity;
+import com.sharp.chat.Custom.DBContact;
 import com.sharp.chat.Custom.ShowInfo;
+import com.sharp.chat.Database.DBContactManager;
 import com.sharp.chat.R;
 
 import java.util.LinkedList;
@@ -28,11 +30,13 @@ public class ContactFragment extends Fragment {
     private ExpandableListView expandableListView;
     private LinkedList<String> group;
     private LinkedList<LinkedList<ShowInfo>> child;
+    private DBContactManager manager;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initListData();
     }
 
     @Override
@@ -71,24 +75,32 @@ public class ContactFragment extends Fragment {
             }
         });
     }
-
-    private void initAdapter(){
+    private void initListData(){
         group = new LinkedList<String>();
         child = new LinkedList<>();
+        String temp = "";
+        String grouping ="";
+        manager = new DBContactManager(getActivity());
+        LinkedList<DBContact> list = new LinkedList<>(manager.Query());
+        for (int i = 0 ;i<list.size();i++){
 
-        group.add("aaa");
-        group.add("bbb");
-        group.add("ccc");
+            grouping=list.get(i).grouping;
+            String name = list.get(i).friend;
+            String personalized = list.get(i).personalized;
 
-        LinkedList<ShowInfo> child1 = new LinkedList<>();
-        child1.add(new ShowInfo("aaa", "bbb"));
-        child1.add(new ShowInfo("bbb", "ccc"));
+            if (grouping.equals(temp)) {
+                child.getLast().add(new ShowInfo(name, personalized));
+            }else{
+                temp = grouping;
+                group.add(temp);
+                LinkedList<ShowInfo> tempList = new LinkedList<>();
+                tempList.add(new ShowInfo(name,personalized));
+                child.add(tempList);
+            }
+        }
+    }
 
-        child.add(child1);
-        child.add(child1);
-        child.add(child1);
-        child.add(child1);
-
+    private void initAdapter(){
         adapter = new ContactFragmentAdapter(getActivity(),group,child);
         expandableListView =(ExpandableListView)getActivity().findViewById(R.id.main_contact_expandListView);
         expandableListView.setAdapter(adapter);

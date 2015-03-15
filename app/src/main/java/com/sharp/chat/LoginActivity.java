@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sharp.chat.Service.AppUtil;
 import com.sharp.chat.Service.SendMessage;
 import com.sharp.chat.Service.ServiceNet;
 
@@ -31,6 +33,9 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
     LoginReceiver loginReceiver;
 
     ProgressDialog progressDialog;
+
+    String username;
+    String password;
 
     @Override
     protected void onDestroy() {
@@ -92,8 +97,8 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
         EditText passwordET = (EditText) findViewById(R.id.login_password);
 //        String username = usernameET.getText().toString();
 //        String password = passwordET.getText().toString();
-        String username = "aaa";
-        String password = "111";
+        username = "aaa";
+        password = "111";
         if (username.isEmpty()){
             Toast.makeText(this,"用户名不能为空",Toast.LENGTH_SHORT).show();
         }
@@ -104,6 +109,10 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
             SendMessage sendMessage = new SendMessage("LOGIN",this);
             sendMessage.setJSON(new String[]{username,password});
         }
+
+        AppUtil app = (AppUtil)getApplication();
+        app.setAccount(username,password);
+        Log.d("LoginActivity",username+"&"+password);
     }
 
     private class LoginReceiver extends BroadcastReceiver{
@@ -112,6 +121,8 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
         public void onReceive(Context context, Intent intent) {
             String result = intent.getStringExtra("RESULT");
             if (result.equals("SUCCESS")) {
+
+
                 Intent sIntent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(sIntent);
                 LoginActivity.this.finish();

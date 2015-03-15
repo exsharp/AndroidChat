@@ -18,7 +18,7 @@ public class AppUtil extends Application {
     public String getAccount(){
         return account;
     }
-    public void setUser(String name,String word){
+    public void setAccount(String name,String word){
         account = name;
         password = word;
     }

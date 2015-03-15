@@ -23,12 +23,12 @@ public class DBContactHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("(CREATE TABLE IF NOT EXISTS"+tableName+
-                "(account VARCHAR,grouping VARCHAR,personalized VARCHAR,portrait)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+tableName+
+                " (friend VARCHAR,grouping VARCHAR,personalized VARCHAR,portrait,PRIMARY KEY(friend))");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("ALTER TABLE tableName ADD COLUMN other STRING");
+        db.execSQL("ALTER TABLE "+tableName+" ADD COLUMN other STRING");
     }
 }
