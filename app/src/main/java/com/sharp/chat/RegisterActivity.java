@@ -45,7 +45,6 @@ public class RegisterActivity extends ActionBarActivity implements View.OnClickL
         IntentFilter filter = new IntentFilter();
         filter.addAction("REGISTER");
         registerReceiver(receiver,filter);
-
     }
 
     private void initView(){
@@ -54,14 +53,10 @@ public class RegisterActivity extends ActionBarActivity implements View.OnClickL
         registerBT.setOnClickListener(this);
         backBT.setOnClickListener(this);
 
-
         accountET = (EditText)findViewById(R.id.register_user);
         passwordET = (EditText)findViewById(R.id.register_password1);
         checkET = (EditText)findViewById(R.id.register_password2);
         emailET = (EditText) findViewById(R.id.register_email);
-
-
-
     }
 
     @Override

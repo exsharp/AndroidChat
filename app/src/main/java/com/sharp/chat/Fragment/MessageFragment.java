@@ -14,12 +14,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.sharp.chat.Adapter.ChatAdapter;
 import com.sharp.chat.Adapter.MessageFragmentAdapter;
 import com.sharp.chat.ChatActivity;
 import com.sharp.chat.Custom.ShowInfo;
+import com.sharp.chat.InfoActivity;
 import com.sharp.chat.R;
 
 import java.util.LinkedList;
@@ -32,6 +34,7 @@ public class MessageFragment extends Fragment {
     private MessageFragmentAdapter adapter;
     private ListView listView;
     private LinkedList<ShowInfo> message = new LinkedList<>();
+    private ImageButton InfoButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,9 +54,10 @@ public class MessageFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initAdapter();
+        startInfoActivity();
     }
 
-    void initAdapter(){
+    private void initAdapter(){
         adapter = new MessageFragmentAdapter(getActivity(),message);
         listView = (ListView)getActivity().findViewById(R.id.main_message_LV);
         listView.setAdapter(adapter);
@@ -66,6 +70,17 @@ public class MessageFragment extends Fragment {
                 withWho=info.getName();
                 Intent intent = new Intent(getActivity(),ChatActivity.class);
                 intent.putExtra("WHO",withWho);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void startInfoActivity(){
+        InfoButton = (ImageButton)getActivity().findViewById(R.id.main_message_portrait);
+        InfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), InfoActivity.class);
                 startActivity(intent);
             }
         });

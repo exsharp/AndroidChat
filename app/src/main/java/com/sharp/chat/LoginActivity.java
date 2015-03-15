@@ -90,10 +90,10 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
     private void login(){
         EditText usernameET = (EditText)findViewById(R.id.login_user);
         EditText passwordET = (EditText) findViewById(R.id.login_password);
-        String username = usernameET.getText().toString();
-        String password = passwordET.getText().toString();
-//        String username = "aaa";
-//        String password = "111";
+//        String username = usernameET.getText().toString();
+//        String password = passwordET.getText().toString();
+        String username = "aaa";
+        String password = "111";
         if (username.isEmpty()){
             Toast.makeText(this,"用户名不能为空",Toast.LENGTH_SHORT).show();
         }
