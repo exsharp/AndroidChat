@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.sharp.chat.Service.AppUtil;
 import com.sharp.chat.Service.SendMessage;
 
 
@@ -113,6 +114,10 @@ public class RegisterActivity extends ActionBarActivity implements View.OnClickL
                 case "success":
                     Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
                     Intent intent1 = new Intent(RegisterActivity.this,MainActivity.class);
+
+                    AppUtil app = (AppUtil)getApplication();
+                    app.setAccount(account,password);
+
                     intent1.putExtra("account", account);
                     startActivity(intent1);
                     RegisterActivity.this.finish();
