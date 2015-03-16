@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="3dp"
+    android:layout_height="40dp">
+    <ImageView
+        android:id="@+id/grouping_lv_del"
+        android:layout_alignParentLeft="true"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/grouping_delete"/>
+    <TextView
+        android:id="@+id/grouping_lv_name"
+        android:gravity="center_vertical"
+        android:layout_toRightOf="@id/grouping_lv_del"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="组名"
+        android:textSize="20sp"/>
+    <ImageView
+        android:id="@+id/grouping_lv_adj"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/grouping_adj"/>
+
+
+</RelativeLayout>
