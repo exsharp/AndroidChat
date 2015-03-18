@@ -9,10 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 
 import com.sharp.chat.Adapter.ContactFragmentAdapter;
+import com.sharp.chat.AddFriendActivity;
 import com.sharp.chat.ChatActivity;
 import com.sharp.chat.Custom.DBContact;
 import com.sharp.chat.Custom.ShowInfo;
@@ -32,6 +34,8 @@ public class ContactFragment extends Fragment {
     private LinkedList<LinkedList<ShowInfo>> child;
     private DBContactManager manager;
 
+    private Button addFriendButton;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,28 +54,12 @@ public class ContactFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initAdapter();
-        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+        addFriendButton = (Button)getActivity().findViewById(R.id.main_contact_addBT);
+        addFriendButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                Intent intent = new Intent(getActivity(), ChatActivity.class);
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddFriendActivity.class);
                 startActivity(intent);
-                return false;
-            }
-        });
-        expandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                final int groupPosition,childPosition;
-                int itemType = ExpandableListView.getPackedPositionType(id);
-                if (itemType == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
-
-                    return true;
-                }else if(itemType == ExpandableListView.PACKED_POSITION_TYPE_GROUP){
-
-                    return true;
-                }else{
-                    return false;
-                }
             }
         });
     }
@@ -99,10 +87,33 @@ public class ContactFragment extends Fragment {
             }
         }
     }
-
     private void initAdapter(){
         adapter = new ContactFragmentAdapter(getActivity(),group,child);
         expandableListView =(ExpandableListView)getActivity().findViewById(R.id.main_contact_expandListView);
         expandableListView.setAdapter(adapter);
+        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                Intent intent = new Intent(getActivity(), ChatActivity.class);
+                startActivity(intent);
+                return false;
+            }
+        });
+        expandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final int groupPosition,childPosition;
+                int itemType = ExpandableListView.getPackedPositionType(id);
+                if (itemType == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+
+                    return true;
+                }else if(itemType == ExpandableListView.PACKED_POSITION_TYPE_GROUP){
+
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        });
     }
 }

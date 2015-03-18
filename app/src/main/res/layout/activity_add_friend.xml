@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.sharp.chat.AddFriendActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#0997f7">
+        <LinearLayout
+            android:id="@+id/add_friend_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerVertical="true">
+            <ImageButton
+                android:id="@+id/info_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:background="@null"
+                android:src="@drawable/global_back"/>
+            <TextView
+                android:layout_toRightOf="@+id/info_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center_vertical"
+                android:textColor="#ffffffff"
+                android:textSize="20sp"
+                android:text="返回"/>
+        </LinearLayout>
+
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="20sp"
+            android:textColor="#ffffff"
+            android:text="添加好友"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="10dp"
+        android:text="请输入好友账号:"
+        android:textSize="25sp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#000000"/>
+    <EditText
+        android:id="@+id/add_friend_addET"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"/>
+
+    <ListView
+        android:id="@+id/add_friend_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+     </ListView>
+
+</LinearLayout>

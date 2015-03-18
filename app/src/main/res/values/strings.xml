@@ -10,5 +10,6 @@
     <string name="title_activity_chat">ChatActivity</string>
     <string name="title_activity_info">InfoActivity</string>
     <string name="title_activity_grouping">GroupingActivity</string>
+    <string name="title_activity_add_friend">AddFriendActivity</string>
 
 </resources>

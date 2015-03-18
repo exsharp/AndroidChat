@@ -121,8 +121,6 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
         public void onReceive(Context context, Intent intent) {
             String result = intent.getStringExtra("RESULT");
             if (result.equals("SUCCESS")) {
-
-
                 Intent sIntent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(sIntent);
                 LoginActivity.this.finish();
