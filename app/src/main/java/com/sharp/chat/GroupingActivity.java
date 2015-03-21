@@ -1,12 +1,19 @@
 package com.sharp.chat;
 
+import android.app.AlertDialog;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import com.sharp.chat.Database.DBContactManager;
 import com.sharp.chat.DragList.DragListAdapter;
 import com.sharp.chat.DragList.DragListView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -14,8 +21,7 @@ import java.util.ArrayList;
  * 分组管理列表
  */
 
-public class GroupingActivity extends ActionBarActivity {
-
+public class GroupingActivity extends ActionBarActivity implements View.OnClickListener {
 
     private DragListAdapter mAdapter = null;
     private ArrayList<String> mData = new ArrayList<String>();
@@ -24,29 +30,51 @@ public class GroupingActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grouping);
-        initView();
+        initAdapter();
+    }
+
+    private void initView(){
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.grouping_lv_name:
+                changeGroupingName();
+                break;
+        }
+    }
+
+    private void changeGroupingName(){
+
     }
 
     /**
      * 初始化视图
      */
-    private void initView() {
-        initData();// 在对ListView操作前要先完成数据的初始化
+    private void initAdapter() {
+
+        // 数据结果
+        DBContactManager manager = new DBContactManager(this);
+        mData = new ArrayList<String>(manager.getGrouping());
 
         DragListView dragListView = (DragListView) findViewById(R.id.grouping_lv);
         mAdapter = new DragListAdapter(this, mData);
         dragListView.setAdapter(mAdapter);
-    }
 
-    /**
-     * 初始化数据
-     */
-    public void initData() {
-        // 数据结果
-        mData = new ArrayList<String>();
-        for (int i = 0; i < 10; i++) {
-            mData.add("测试" + i + "目录");
-        }
+        TextView changeNameTV = (TextView)findViewById(R.id.grouping_lv_name);
+        changeNameTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(GroupingActivity.this)
+                        .setTitle("请输入")
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .setView(new EditText(GroupingActivity.this))
+                        .setNegativeButton("取消", null)
+                .setPositiveButton("确定", null)
+                .show();
+            }
+        });
     }
 
     @Override

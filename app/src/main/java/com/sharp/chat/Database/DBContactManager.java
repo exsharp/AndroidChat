@@ -8,6 +8,7 @@ import android.util.Log;
 import com.sharp.chat.Custom.DBContact;
 import com.sharp.chat.Service.AppUtil;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,6 +39,11 @@ public class DBContactManager {
         Log.d("DBContactMgr", "DBMgr删除数据");
     }
 
+    public Cursor queryTheCursor(){
+        Cursor c = db.rawQuery("select * from "+tableName,new String[]{});
+        return c;
+    }
+
     public List<DBContact> Query(){
         LinkedList<DBContact> contacts = new LinkedList<>();
         Cursor c = queryTheCursor();
@@ -53,9 +59,16 @@ public class DBContactManager {
         return contacts;
     }
 
-    public Cursor queryTheCursor(){
-        Cursor c = db.rawQuery("select * from "+tableName,new String[]{});
-        return c;
+    public List<String> getGrouping(){
+        ArrayList<String> list = new ArrayList<>();
+        Cursor c = db.rawQuery("select grouping from "+tableName+" group by grouping",new String[]{});
+        while (c.moveToNext()){
+            String temp;
+            temp = c.getString(c.getColumnIndex("grouping"));
+            list.add(temp);
+        }
+        c.close();
+        return list;
     }
 
     public void closeDB(){
