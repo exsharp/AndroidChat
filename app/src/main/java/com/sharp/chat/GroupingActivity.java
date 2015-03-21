@@ -5,15 +5,49 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.sharp.chat.DragList.DragListAdapter;
+import com.sharp.chat.DragList.DragListView;
+
+import java.util.ArrayList;
+
+/*
+ * 分组管理列表
+ */
 
 public class GroupingActivity extends ActionBarActivity {
+
+
+    private DragListAdapter mAdapter = null;
+    private ArrayList<String> mData = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grouping);
+        initView();
     }
 
+    /**
+     * 初始化视图
+     */
+    private void initView() {
+        initData();// 在对ListView操作前要先完成数据的初始化
+
+        DragListView dragListView = (DragListView) findViewById(R.id.grouping_lv);
+        mAdapter = new DragListAdapter(this, mData);
+        dragListView.setAdapter(mAdapter);
+    }
+
+    /**
+     * 初始化数据
+     */
+    public void initData() {
+        // 数据结果
+        mData = new ArrayList<String>();
+        for (int i = 0; i < 10; i++) {
+            mData.add("测试" + i + "目录");
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

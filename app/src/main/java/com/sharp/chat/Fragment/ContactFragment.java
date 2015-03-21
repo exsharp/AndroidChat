@@ -19,6 +19,7 @@ import com.sharp.chat.ChatActivity;
 import com.sharp.chat.Custom.DBContact;
 import com.sharp.chat.Custom.ShowInfo;
 import com.sharp.chat.Database.DBContactManager;
+import com.sharp.chat.GroupingActivity;
 import com.sharp.chat.R;
 
 import java.util.LinkedList;
@@ -108,7 +109,8 @@ public class ContactFragment extends Fragment {
 
                     return true;
                 }else if(itemType == ExpandableListView.PACKED_POSITION_TYPE_GROUP){
-
+                    Intent intent = new Intent(getActivity(), GroupingActivity.class);
+                    startActivity(intent);
                     return true;
                 }else{
                     return false;

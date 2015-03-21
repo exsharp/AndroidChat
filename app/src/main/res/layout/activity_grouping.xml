@@ -53,10 +53,9 @@
         android:layout_height="1px"
         android:background="#000000"/>
 
-    <ListView
+    <com.sharp.chat.DragList.DragListView
         android:id="@+id/grouping_lv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ListView>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
