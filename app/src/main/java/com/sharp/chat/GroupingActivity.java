@@ -1,12 +1,15 @@
 package com.sharp.chat;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sharp.chat.Database.DBContactManager;
@@ -26,29 +29,56 @@ public class GroupingActivity extends ActionBarActivity implements View.OnClickL
     private DragListAdapter mAdapter = null;
     private ArrayList<String> mData = new ArrayList<String>();
 
+    private Button complete;
+    private LinearLayout add;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grouping);
+        initView();
         initAdapter();
     }
 
     private void initView(){
+        complete = (Button)findViewById(R.id.grouping_complete);
+        add = (LinearLayout)findViewById(R.id.grouping_add);
+        complete.setOnClickListener(this);
+        add.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.grouping_lv_name:
-                changeGroupingName();
+            case R.id.grouping_add:
+                addGroup();
                 break;
+            case R.id.grouping_complete:
+                complete();
+                break;
+
         }
     }
 
-    private void changeGroupingName(){
-
+    private void addGroup(){
+        final EditText editText = new EditText(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder
+        .setTitle("请输入分组名")
+        .setIcon(android.R.drawable.ic_dialog_info)
+        .setView(editText)
+        .setNegativeButton("取消", null)
+        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mData.add(editText.getText().toString());
+            }
+        }).show();
     }
 
+    private void complete(){
+
+    }
     /**
      * 初始化视图
      */
@@ -62,19 +92,6 @@ public class GroupingActivity extends ActionBarActivity implements View.OnClickL
         mAdapter = new DragListAdapter(this, mData);
         dragListView.setAdapter(mAdapter);
 
-        TextView changeNameTV = (TextView)findViewById(R.id.grouping_lv_name);
-        changeNameTV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(GroupingActivity.this)
-                        .setTitle("请输入")
-                .setIcon(android.R.drawable.ic_dialog_info)
-                .setView(new EditText(GroupingActivity.this))
-                        .setNegativeButton("取消", null)
-                .setPositiveButton("确定", null)
-                .show();
-            }
-        });
     }
 
     @Override

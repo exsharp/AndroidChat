@@ -4,7 +4,9 @@ package com.sharp.chat.DragList;
  * Created by sharp on 3/21/2015.
  */
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.sharp.chat.R;
@@ -141,6 +144,15 @@ public class DragListAdapter extends BaseAdapter {
                             removeItem(position);
                         }
                     });
+
+            convertView.findViewById(R.id.grouping_lv_name)
+                    .setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            renameItem(position);
+                        }
+                    });
+
         }
 
     }
@@ -196,14 +208,45 @@ public class DragListAdapter extends BaseAdapter {
     /**
      * 删除指定的Item
      *
-     * @param pos
-     *            // 要删除的下标
+     * @param pos 要删除的下标
+     *
      */
-    private void removeItem(int pos) {
-        if (mDataList != null && mDataList.size() > pos) {
-            mDataList.remove(pos);
-            this.notifyDataSetChanged();
-        }
+    private void removeItem(final int pos) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("提示").setMessage("确定要删除吗")
+                .setPositiveButton("确认",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (mDataList != null && mDataList.size() > pos) {
+                            mDataList.remove(pos);
+                            DragListAdapter.this.notifyDataSetChanged();
+                        }
+                    }
+                }).setNegativeButton("取消",null).show();
+    }
+
+    /*
+     * 修改指定的Item
+     */
+    private void renameItem(final int pos){
+        final EditText editText = new EditText(mContext);
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder
+        .setTitle("重命名:"+"\""+mDataList.get(pos)+"\"")
+        .setIcon(android.R.drawable.ic_dialog_info)
+        .setView(editText)
+        .setNegativeButton("取消", null)
+        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String getName = editText.getText().toString();
+                if (mDataList != null && mDataList.size() > pos) {
+                    mDataList.remove(pos);
+                    mDataList.add(pos, getName);
+                    DragListAdapter.this.notifyDataSetChanged();
+                }
+            }
+        }).show();
     }
 
     /**

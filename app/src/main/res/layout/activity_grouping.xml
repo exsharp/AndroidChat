@@ -18,6 +18,7 @@
             android:textColor="#ffffffff"
             android:text="设置"/>
         <Button
+            android:id="@+id/grouping_complete"
             android:layout_alignParentRight="true"
             android:gravity="center_vertical|right"
             android:layout_marginRight="10dp"
@@ -30,6 +31,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/grouping_add"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
