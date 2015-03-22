@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.sharp.chat.Database.DBContactManager;
 import com.sharp.chat.DragList.DragListAdapter;
 import com.sharp.chat.DragList.DragListView;
+import com.sharp.chat.Service.SendMessage;
 
 import org.w3c.dom.Text;
 
@@ -71,7 +72,10 @@ public class GroupingActivity extends ActionBarActivity implements View.OnClickL
         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                mData.add(editText.getText().toString());
+                String group = editText.getText().toString();
+                mData.add(group);
+                SendMessage msg = new SendMessage("ADDGROUP",GroupingActivity.this);
+                msg.setJSON(new String[]{group});
             }
         }).show();
     }
