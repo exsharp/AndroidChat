@@ -132,7 +132,6 @@ func friendListHandler(conn net.Conn) {
 
 	var send JSON
 	send.TYPE = "FRIEND_LIST"
-	//send.CONTENT = append(send.CONTENT, "")
 
 	db, _ := sql.Open("mysql", "root:root@/android?charset=utf8")
 	rows, _ := db.Query("select friend,grouping from relation where account=? order by grouporder,friend", online[conn])
@@ -141,15 +140,8 @@ func friendListHandler(conn net.Conn) {
 
 	var friend string
 	var group string
-	//temp := ""
 	for rows.Next() {
 		rows.Scan(&friend, &group)
-		//temp = group
-		//if group == temp {
-		//	send.CONTENT = append(send.CONTENT, friend)
-		//} else {
-		//	send.CONTENT = append(send.CONTENT, "", group, friend)
-		//}
 		personalizedRows, _ := db.Query("select personalized from users where account=?", friend)
 		personalized := ""
 		for personalizedRows.Next() {
@@ -164,7 +156,7 @@ func friendListHandler(conn net.Conn) {
 
 func addgroupHandler(conn net.Conn, sour JSON) {
 	var send JSON
-	send.TYPE = "ADDGROUP"
+	send.TYPE = "ADD_GROUP"
 	user := online[conn]
 	group := sour.CONTENT[0]
 
@@ -175,9 +167,11 @@ func addgroupHandler(conn net.Conn, sour JSON) {
 	for rows.Next() {
 		rows.Scan(&uid)
 	}
-	_, err = db.Exec("insert into relation(account,grouping,grouporder) value(?,?,?)", user, group, uid+1)
+	_, err := db.Exec("insert into relation(account,grouping,grouporder) value(?,?,?)", user, group, uid+1)
 	if err != nil {
 		send.CONTENT = append(send.CONTENT, "success")
+	} else {
+		send.CONTENT = append(send.CONTENT, "fail")
 	}
 	friendListHandler(conn)
 	sendMsg(conn, send)

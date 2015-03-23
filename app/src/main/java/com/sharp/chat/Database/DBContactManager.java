@@ -30,6 +30,7 @@ public class DBContactManager {
     }
 
     public void addContact(DBContact contact){
+        db.execSQL("truncate table "+tableName);
         db.execSQL("REPLACE INTO "+tableName+" VALUES(?, ?, ?, ?)",new String[]{contact.friend,contact.grouping,contact.personalized,contact.portrait});
         Log.d("DBContactMgr", "DBMgr插入数据");
     }

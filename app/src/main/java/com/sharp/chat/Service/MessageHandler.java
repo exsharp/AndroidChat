@@ -53,6 +53,9 @@ public class MessageHandler {
             case "FRIEND_LIST":
                 friendList(jsonArray);
                 break;
+            case "ADD_GROUP":
+                addGroup(jsonArray);
+                break;
             default:
         }
     }
@@ -90,5 +93,14 @@ public class MessageHandler {
             Log.d("FriendList",list.get(i).toString());
         }
         manager.closeDB();
+    }
+    private void addGroup(JSONArray ja) throws JSONException{
+        intent.setAction("ADD_GROUP");
+        if (ja.get(0).equals("success")){
+            intent.putExtra("RESULT","添加成功");
+        }else{
+            intent.putExtra("RESULT","添加失败");
+        }
+        context.sendBroadcast(intent);
     }
 }

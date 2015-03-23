@@ -1,7 +1,11 @@
 package com.sharp.chat;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sharp.chat.Database.DBContactManager;
 import com.sharp.chat.DragList.DragListAdapter;
@@ -32,11 +37,23 @@ public class GroupingActivity extends ActionBarActivity implements View.OnClickL
 
     private Button complete;
     private LinearLayout add;
+    private BroadcastReceiver receiver = new Receiver();
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grouping);
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("ADD_GROUP");
+        registerReceiver(receiver,filter);
+
         initView();
         initAdapter();
     }
@@ -74,15 +91,28 @@ public class GroupingActivity extends ActionBarActivity implements View.OnClickL
             public void onClick(DialogInterface dialog, int which) {
                 String group = editText.getText().toString();
                 mData.add(group);
-                SendMessage msg = new SendMessage("ADDGROUP",GroupingActivity.this);
+                SendMessage msg = new SendMessage("ADD_GROUP",GroupingActivity.this);
                 msg.setJSON(new String[]{group});
             }
         }).show();
     }
 
+
+    class Receiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String result = intent.getStringExtra("RESULT");
+            if (!result.equals("添加成功")) {
+                mData.remove(mData.size() - 1);
+                Toast.makeText(getApplication(), result, Toast.LENGTH_SHORT);
+            }
+        }
+    }
+
     private void complete(){
 
     }
+
     /**
      * 初始化视图
      */

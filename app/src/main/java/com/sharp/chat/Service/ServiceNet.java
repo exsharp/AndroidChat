@@ -23,7 +23,8 @@ public class ServiceNet extends Service {
     private BufferedReader reader;
     private BufferedWriter writer;
 
-    private String host = "192.168.95.1";  //要连接的服务端IP地址
+    //private String host = "192.168.95.1";  //要连接的服务端IP地址
+    private String host = "172.22.71.216";
     private int port = 3333;   //要连接的服务端对应的监听端口
 
     private void StartConnect () {
